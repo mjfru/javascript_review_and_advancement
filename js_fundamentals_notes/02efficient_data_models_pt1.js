@@ -98,3 +98,47 @@ If you pass in a single number, it will take a slice starting at that number all
 Again, this method will only replace the first instance of the word and will make no changes if it can't find the first argument.
 */
 'baseball is entertaining.'.replace('entertaining', 'ok') // baseball is ok
+
+
+//! String Escapes
+/*
+? These are combinations of characters that have different meanings within a string.
+They aren't too common but they can come in handy and are good to know!
+  * \'  - single quote '
+  * \"  - double quote "
+  * \n  - new line
+  * \t  - tab
+  * \\   - backslash
+*/
+
+console.log("HELLO\nGOODBYE"); 
+// HELLO
+// GOODBYE
+
+console.log("\\") // \
+
+
+/*
+! String Template Literals
+? Template literals are strings that all embedded expressions, which will be evaluated and then turning into a result string.
+* To use these, we use - back-ticks `` - NOT single quotes.
+Using template literals, we can embed information, variables, equations, etc.
+* To do this, we put our logic, variable, etc. inside a dollar-sign $ and curly braces {} that are placed inside of back-ticks ``.
+`You owe me ${100 + 200} dollars.`
+
+Prior to String Template Literals, we had to concatenate each string and variable together.
+"Welcome, " + username + "!" 
+*/
+
+console.log(`I counted ${3 + 4} sheep.`);
+let username = "Matt201"
+console.log(`Welcome, ${username}!`)
+
+let item = 'cucumbers';
+let price = 1.99;
+let quantity = 4;
+console.log(`You bought ${quantity} ${item}, total price: $${price * quantity}.`);
+
+const minAge = 21;
+let patronAge = 19;
+console.log(`You must be ${minAge} to enter. Come back in ${minAge - patronAge} years.`)
