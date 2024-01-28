@@ -75,7 +75,7 @@ trimExample.trim().toUpperCase(); // "NOT RIGHT NOW"
 /*
 * indexOf - Find where in a string a substring starts / occurs
 This method is case sensitive and returns the first instance of the argument.
-If it can't find the substring, it returns -1 as an answer; common to use this if you're making sure something is NOT there.
+! If it can't find the substring, it returns -1 as an answer; common to use this if you're making sure something is NOT there.
 */
 
 let tvShow = 'catdog';
