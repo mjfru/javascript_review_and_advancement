@@ -100,32 +100,3 @@ function outer() {
   }
   inner();
 }
-
-/*
-! Function Expressions
-* There's another syntax we can use to define functions, these are called function expressions.
-? This works because functions are technically objects!
-Knowing about function expressions will benefit us later when looking at hoisting and moving functions around.
-*/
-
-//? Examples:
-const square = function(num) {    // the function has no name, it's just stored in a named variable.
-  return num * num;
-}
-square(7);  // looks just like our normal functions!
-
-function add(x, y) {
-  return x + y;
-}
-
-const sum = function(x, y) {    // When not named, this is called an anonymous function. It will NOT work by itself, however.
-  return x + y;
-}
-console.log(sum(3, 5))
-
-//* Keep in mind, when using function expressions, the functions declared in your variable don't always have to be anonmyous, they can be named too:
-const product = function multiply(x, y) {
-  return x * y;
-}
-
-product(3, 9); // multiply(3, 9) won't work!
