@@ -42,3 +42,20 @@ h1.innerHTML;
 h1.innerHTML += " has something extra added to it!"; // Possible to add to elements like this
 h1.innerHTML += "<b>!!!!</b>"; // This will actually add the bolded exclamation marks because innerHTML can interpret the tags.
 h1.innerText += "<b>!!!!</b>"; // This will NOT work (unless it's your intention) and will now display the <b> tags in the header as well; they are not interpreted by innerText.
+
+/*
+! Values, Links, and Images
+ * Now let's look at elements that have properties/values that we can influence directly via JavaScript.
+ */
+
+const inputs = document.querySelectorAll('input');
+inputs[0].value // "Would display what's set equal to value in the markup."
+inputs[0].value = '' // Might be used to reset a form entry after the input contents has been submitted and stored.
+inputs[2].checked // false (Assuming we had an unchecked checkbox)
+
+const a = document.querySelector('a');
+a.href // Will give us the href value of <a>
+a.href = "http://www.google.com" // Element will now navigate you to Google!
+
+const img = document.querySelector('img');
+img.src; // Will provide the src, the source, of the image.
