@@ -18,8 +18,27 @@ h1.innertext = "I'm reviewing DOM manipulation!";
 // Now, it's pretty silly to change something like an h1 tag in JS immediately after the page loads, we'd just change it in the HTML for the same effect but...that's where events will come in later.
 document.body.innertext; // Provides ALL the text on the entire webpage.
 
-//! textcontent
 /*
+! textcontent
 * On the surface, this seems identical to innertext but textcontent displays the content, custom spacing, nested elements (even hidden ones), etc.
 * Innertext is moreso what is actually displayed on the webpage, a little slower because it has to analyze a bit of what to show and what to hide, and is typically more common.
 */
+
+/*
+! innerHTML
+* This returns / retrieves not only the text but all other tags inside an element as well.
+? We can use this to directly change, add, or destory content set in your markup.
+*/
+const form = document.querySelector("form");
+form.innerHTML; // returns all the elements of said form.
+form.innerHTML = "<b>I am a bold tag!</b>"; // This will now appear in our form. Quotes and tags are necessary!
+
+const ul = document.querySelector("ul");
+ul.innerHTML; // Shows us everything in the list, including the <li> tags.
+
+const h1 = document.querySelector("h1");
+h1.innerText;
+h1.innerHTML;
+h1.innerHTML += " has something extra added to it!"; // Possible to add to elements like this
+h1.innerHTML += "<b>!!!!</b>"; // This will actually add the bolded exclamation marks because innerHTML can interpret the tags.
+h1.innerText += "<b>!!!!</b>"; // This will NOT work (unless it's your intention) and will now display the <b> tags in the header as well; they are not interpreted by innerText.
