@@ -61,3 +61,10 @@ input.addEventListener("keyup", function (e) {
 input.addEventListener("keypress", function (e) {
   console.log("Key Press");
 });
+
+/*
+! Form Inputs & Prevent Default
+* When submitting forms, the default value of a submit input is to send you to another page and/or refresh the page.
+* If we don't want that to happen, we can use 'e.preventDefault();'
+? We can now capture that data and utilize it in other ways, very common for single page apps built with React, Vue, Angular, etc.
+*/
