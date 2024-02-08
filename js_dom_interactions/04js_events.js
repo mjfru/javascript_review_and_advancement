@@ -68,3 +68,9 @@ input.addEventListener("keypress", function (e) {
 * If we don't want that to happen, we can use 'e.preventDefault();'
 ? We can now capture that data and utilize it in other ways, very common for single page apps built with React, Vue, Angular, etc.
 */
+
+/*
+! Input & Change Events
+* You can listen to changes across different events or form controls using a single event type.
+I.E. if something changes, we can see it or a change to the page immediately.
+*/
