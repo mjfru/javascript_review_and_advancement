@@ -23,12 +23,13 @@ class Timer {
   start = () => {
     // If we do indeed have an onStart callback...
     if (this.onStart) {
-      this.onStart();
+      this.onStart(this.timeRemaining);
     }
     // Call it manually first to compensate for setInterval waiting 1 second before starting
     this.tick();
     // setInterval(methodToRun, howOften)
-    this.interval = setInterval(this.tick, 1000);
+    this.interval = setInterval(this.tick, 50);
+    // Reduce the time to help make the animation smoother.
   };
   // How do we get the timer into this method too? - Assign an instance variable! this.
   pause = () => {
@@ -50,10 +51,12 @@ class Timer {
         this.onComplete();
       }
     } else {
-      this.timeRemaining = this.timeRemaining - 1;
+      // -.05 matches the interval it's set to above
+      this.timeRemaining = this.timeRemaining - 0.05;
       // Coming from the callback function:
       if (this.onTick) {
-        this.onTick();
+        // Now, in our other JS file, onTick() is going to receive timeRemaining
+        this.onTick(this.timeRemaining);
       }
     }
   };
@@ -65,6 +68,7 @@ class Timer {
   }
 
   set timeRemaining(time) {
-    this.durationInput.value = time;
+    // .toFixed(2) rounds the decimal to just 2 decimal places
+    this.durationInput.value = time.toFixed(2);
   }
 }

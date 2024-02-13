@@ -1,0 +1,67 @@
+* {
+    font: inherit;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    font-family: "Rock Salt", cursive;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.dial {
+    height: 400px;
+    width: 400px;
+}
+
+.timer {
+    position: relative;
+    display: inline-block;
+}
+
+.timer input {
+    display: block;
+    border: none;
+    width: 240px;
+    font-size: 90px;
+    text-align: center;
+    cursor: text;
+}
+
+.timer input:focus {
+    outline: none;
+}
+
+.timer button {
+    border: none;
+    background-color: white;
+    font-size: 72px;
+    cursor: pointer;
+}
+
+.timer button:focus {
+    outline: none;
+}
+
+.controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
