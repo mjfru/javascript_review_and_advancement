@@ -10,6 +10,11 @@ const fetchData = async (searchTerm) => {
       // s: 'avengers'
     },
   });
+
+  // Handling errors, such as no movie being found in the DB:
+  if (response.data.Error) {
+    return [];
+  }
   // Uppercase 'S' because of what the API returns to us, this is nonstandard!
   return response.data.Search;
   // console.log(response.data);
@@ -20,16 +25,16 @@ const input = document.querySelector("input");
 //! Below will be turned into a helper function in the event that we need to debounce something else.
 // In one second (after typing stops, fetch the data)
 //? This is called debouncing an input!
-const onInput = async event => {
+const onInput = async (event) => {
   const movies = await fetchData(event.target.value);
   for (let movie of movies) {
-    const div = document.createElement('div');
+    const div = document.createElement("div");
     div.innerHTML = `
       <img src="${movie.Poster}"/>
       <h1>${movie.Title}</h1>
     `;
 
-    document.querySelector('#target').appendChild(div);
+    document.querySelector("#target").appendChild(div);
   }
   // console.log(movies);
 };
