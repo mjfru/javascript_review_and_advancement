@@ -20,21 +20,41 @@ const fetchData = async (searchTerm) => {
   // console.log(response.data);
 };
 
+const root = document.querySelector(".autocomplete");
+root.innerHTML = `
+  <label><b>Search for a Movie</b></label>
+  <input type="text" class="input" />
+  <div class="dropdown">
+    <div class="dropdown-menu">
+      <div class="dropdown-content results"></div>
+    </div>
+  </div>
+`;
+
 const input = document.querySelector("input");
+const dropdown = document.querySelector(".dropdown");
+const resultsWrapper = document.querySelector(".results");
 
 //! Below will be turned into a helper function in the event that we need to debounce something else.
 // In one second (after typing stops, fetch the data)
 //? This is called debouncing an input!
 const onInput = async (event) => {
   const movies = await fetchData(event.target.value);
+  
+  // Making it so any existing data is cleared on a new search; initialized as an empty string
+  resultsWrapper.innerHTML = '';
+
+  dropdown.classList.add('is-active');
   for (let movie of movies) {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <img src="${movie.Poster}"/>
-      <h1>${movie.Title}</h1>
+    const option = document.createElement("a");
+    const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
+    option.classList.add('dropdown-item');
+    option.innerHTML = `
+      <img src="${imgSrc}"/>
+      ${movie.Title}
     `;
 
-    document.querySelector("#target").appendChild(div);
+    resultsWrapper.appendChild(option);
   }
   // console.log(movies);
 };
