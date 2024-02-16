@@ -28,7 +28,7 @@ class Timer {
     // Call it manually first to compensate for setInterval waiting 1 second before starting
     this.tick();
     // setInterval(methodToRun, howOften)
-    this.interval = setInterval(this.tick, 50);
+    this.interval = setInterval(this.tick, 10);
     // Reduce the time to help make the animation smoother.
   };
   // How do we get the timer into this method too? - Assign an instance variable! this.
@@ -52,7 +52,7 @@ class Timer {
       }
     } else {
       // -.05 matches the interval it's set to above
-      this.timeRemaining = this.timeRemaining - 0.05;
+      this.timeRemaining = this.timeRemaining - 0.01;
       // Coming from the callback function:
       if (this.onTick) {
         // Now, in our other JS file, onTick() is going to receive timeRemaining
