@@ -39,18 +39,18 @@ Runner.run(Runner.create(), engine);
 //? Using a constant variable makes it much easier to change the width and height on the fly without touching the values below:
 const walls = [
   // Top
-  Bodies.rectangle(width / 2, 0, width, 40, { isStatic: true }),
+  Bodies.rectangle(width / 2, 0, width, 2, { isStatic: true }),
   // Bottom
-  Bodies.rectangle(width / 2, height, width, 40, { isStatic: true }),
+  Bodies.rectangle(width / 2, height, width, 2, { isStatic: true }),
   // Left
-  Bodies.rectangle(0, height / 2, 40, height, { isStatic: true }),
+  Bodies.rectangle(0, height / 2, 2, height, { isStatic: true }),
   // Right
-  Bodies.rectangle(width, height / 2, 40, height, { isStatic: true }),
+  Bodies.rectangle(width, height / 2, 2, height, { isStatic: true }),
 ];
 // Passing in the walls array to add to our world.
 World.add(world, walls);
 // And let's add something inside of these walls now too:
-World.add(world, Bodies.rectangle(200, 200, 50, 50));
+// World.add(world, Bodies.rectangle(200, 200, 50, 50));
 
 // Maze Generation Grid
 
@@ -186,3 +186,24 @@ verticals.forEach((row, rowIndex) => {
     World.add(world, wall);
   });
 });
+
+// Creating the goal:
+const goal = Bodies.rectangle(
+  width - unitLength / 2,
+  height - unitLength / 2,
+  unitLength * 0.7,
+  unitLength * 0.7,
+  {
+    isStatic: true,
+  }
+);
+World.add(world, goal);
+
+
+// Creating the ball (usable object)
+const ball = Bodies.circle(
+  unitLength / 2,
+  unitLength / 2,
+  unitLength / 4
+);
+World.add(world, ball);
