@@ -3,7 +3,7 @@ const { Engine, Render, Runner, World, Bodies } = Matter;
 // Mouse & Mouse Constraint adds interactivity to be able to move objects around
 
 // The number of cells in the horizontal / vertical edges:
-const cells = 3;
+const cells = 15;
 
 // The abstracted heights and widths to be reused:
 const width = 600;
@@ -107,10 +107,10 @@ const stepThroughCell = (row, column) => {
 
   // Assemble randomly-ordered list of neighbors
   const neighbors = shuffle([
-    [row - 1, column, 'up'],
+    [row - 1, column, "up"],
     [row, column + 1, "right"],
-    [row + 1, column, 'down'],
-    [row, column - 1, 'left']
+    [row + 1, column, "down"],
+    [row, column - 1, "left"],
   ]);
 
   // console.log(neighbors);
@@ -136,14 +136,14 @@ const stepThroughCell = (row, column) => {
       verticals[row][column - 1] = true;
     } else if (direction === "right") {
       verticals[row][column] = true;
-    } else if (direction === 'up') {
+    } else if (direction === "up") {
       horizontals[row - 1][column] = true;
-    } else if (direction === 'down') {
+    } else if (direction === "down") {
       horizontals[row][column] = true;
     }
 
     // Visit that next cell
-    stepThroughCell(nextRow, nextColumn)
+    stepThroughCell(nextRow, nextColumn);
   }
 };
 
@@ -160,9 +160,27 @@ horizontals.forEach((row, rowIndex) => {
       columnIndex * unitLength + unitLength / 2,
       rowIndex * unitLength + unitLength,
       unitLength,
-      10,
+      5,
       {
-        isStatic: true
+        isStatic: true,
+      }
+    );
+    World.add(world, wall);
+  });
+});
+
+verticals.forEach((row, rowIndex) => {
+  row.forEach((open, columnIndex) => {
+    if (open) {
+      return;
+    }
+    const wall = Bodies.rectangle(
+      columnIndex * unitLength + unitLength,
+      rowIndex * unitLength + unitLength / 2,
+      5,
+      unitLength,
+      {
+        isStatic: true,
       }
     );
     World.add(world, wall);
