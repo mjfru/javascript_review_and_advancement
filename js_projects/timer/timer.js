@@ -72,3 +72,11 @@ class Timer {
     this.durationInput.value = time.toFixed(2);
   }
 }
+
+const bodyElement = document.body;
+
+const backgroundSetter = document.querySelector("#background-setter");
+
+backgroundSetter.addEventListener("input", () => {
+  bodyElement.style.backgroundColor = backgroundSetter.value;
+});

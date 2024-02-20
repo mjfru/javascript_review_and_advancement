@@ -4,12 +4,14 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
 }
 
 h1 {
     text-align: center;
     font-size: 50px;
     font-family: "Rock Salt", cursive;
+    text-decoration: underline;
 }
 
 .wrapper {
@@ -37,6 +39,7 @@ h1 {
     font-size: 90px;
     text-align: center;
     cursor: text;
+    background-color: transparent;
 }
 
 .timer input:focus {
@@ -45,7 +48,6 @@ h1 {
 
 .timer button {
     border: none;
-    background-color: white;
     font-size: 72px;
     cursor: pointer;
 }
@@ -64,4 +66,8 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+button {
+    background-color: transparent;
 }
