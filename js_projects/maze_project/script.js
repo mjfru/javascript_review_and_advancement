@@ -1,9 +1,10 @@
 // From our import in the HTML, all from the 'Matter' library.
-const { Engine, Render, Runner, World, Bodies } = Matter;
+const { Engine, Render, Runner, World, Bodies, Body, Events } = Matter;
 // Mouse & Mouse Constraint adds interactivity to be able to move objects around
+// Body allows us to update properties inside of shapes (velocity, for example)
 
 // The number of cells in the horizontal / vertical edges:
-const cells = 15;
+const cells = 6;
 
 // The abstracted heights and widths to be reused:
 const width = 600;
@@ -12,6 +13,7 @@ const height = 600;
 const unitLength = width / cells;
 
 const engine = Engine.create();
+engine.world.gravity.y = 0;
 // When we create an engine, we get a world object along with it (among other things), so let's destructure that out:
 const { world } = engine;
 const render = Render.create({
@@ -163,6 +165,7 @@ horizontals.forEach((row, rowIndex) => {
       5,
       {
         isStatic: true,
+        label: 'wall'
       }
     );
     World.add(world, wall);
@@ -181,6 +184,7 @@ verticals.forEach((row, rowIndex) => {
       unitLength,
       {
         isStatic: true,
+        label: 'wall'
       }
     );
     World.add(world, wall);
@@ -195,15 +199,47 @@ const goal = Bodies.rectangle(
   unitLength * 0.7,
   {
     isStatic: true,
+    label: 'goal'
   }
 );
 World.add(world, goal);
 
-
 // Creating the ball (usable object)
-const ball = Bodies.circle(
-  unitLength / 2,
-  unitLength / 2,
-  unitLength / 4
-);
+const ball = Bodies.circle(unitLength / 2, unitLength / 2, unitLength / 4, {
+  label: 'ball'
+});
 World.add(world, ball);
+
+// Event listener for key press movement (ASWD)
+document.addEventListener("keydown", (event) => {
+  const { x, y } = ball.velocity;
+  // console.log(x, y);
+
+  if (event.keyCode === 87) {
+    Body.setVelocity(ball, { x, y: y - 5 })
+  }
+  if (event.keyCode === 68) {
+    Body.setVelocity(ball, { x: x + 5,  y})
+  }
+  if (event.keyCode === 83) {
+    Body.setVelocity(ball, { x, y: y + 5 })
+  }
+  if (event.keyCode === 65) {
+    Body.setVelocity(ball, { x: x - 5, y })
+  }
+});
+
+// Win Condition & Event:
+Events.on(engine, 'collisionStart', event => {
+  event.pairs.forEach((collision) => {
+    const labels = ['ball', 'goal'];
+    if (labels.includes(collision.bodyA.label) && labels.includes(collision.bodyB.label)) {
+      world.gravity.y = 1;
+      world.bodies.forEach(body => {
+        if (body.label === 'wall') {
+          Body.setStatic(body, false);
+        }
+      })
+    }
+  })
+});
