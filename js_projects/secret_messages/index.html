@@ -4,22 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Seekwut Messuj</title>
 </head>
 <body>
+    
     <div class="row">
         <div class="col s8 offset-s2">
-            <div class="card-panel">
+            <div class="card-panel hide" id="message-show" >
+                <h1></h1>
+                <div>
+                    <a href="./index.html">Create Your Own Secret Message!</a>
+                </div>
+            </div>
+
+            <div class="card-panel" id="message-form">
                 <form action="">
-                    <label for="">Enter a Secret Message</label>
+                    <label for="message-input">Enter a Secret Message</label>
                     <input type="text" id="message-input"/>
                     <button class="btn">Create</button>
                 </form>
             </div>
-
-            <div>
-                Share this link with a friend
-                <input id="link-input"/>
+            
+            <div class="class-panel hide" id="link-form">
+                <div>
+                    Share this link with a friend
+                    <input id="link-input"/>
+                </div>
             </div>
         </div>
     </div>
