@@ -85,23 +85,27 @@ class UsersRepository {
   }
 };
 
+module.exports = new UsersRepository('users.json');
+//? When we import from this file, we're going to receive an instance of UserRepository and begin to use it immediately.
 
-
+/* 
+! Tests
 const test = async () => {
   const repo = new UsersRepository("users.json");
   
-  // await repo.create({ email: 'test2@test.com', password: 'password' });
+  await repo.create({ email: 'test2@test.com', password: 'password' });
   
-  // const users = await repo.getall();
-  // const user = await repo.getOne("aa9f1a04");
-  // console.log(user);
+  const users = await repo.getall();
+  const user = await repo.getOne("aa9f1a04");
+  console.log(user);
 
-  // await repo.delete("5f8db82d");
+  await repo.delete("5f8db82d");
 
-  // await repo.update('64d2567e', { password: 'mynewpassword' })
+  await repo.update('64d2567e', { password: 'mynewpassword' })
 
   const user = await repo.getOneBy({ email: "test@test.com", password: "password" });
   console.log(user);
 }
 
 test();
+*/
