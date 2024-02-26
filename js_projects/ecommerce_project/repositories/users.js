@@ -27,7 +27,7 @@ class UsersRepository {
     records.push(attributes); // Add the new user to the array
     
     await this.writeAll(records);
-
+    return attributes;
   }
 
   // Write All
