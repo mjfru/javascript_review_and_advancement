@@ -11,5 +11,15 @@
     "email": "testtest@test.com",
     "password": "password",
     "id": "5b6af723"
+  },
+  {
+    "email": "hashtest@test.com",
+    "password": "8690dba6bf8ddbe6eff2883fc23bed9a186d4dc24b3bfd7c738730966a8a213cab9449e8c56262213bf085546ba71c165ed38e701ad13c7e60ab2946ff81a754.831d3f810a9006ef",
+    "id": "bb233e8c"
+  },
+  {
+    "email": "mjfru@dojo.edu",
+    "password": "193def77186c94bc1e5f67a3ee034059c03936fd05fce3032a94a1c1b22e967996c66437b82ce7be107b7ed0aadc710541f2e472036714f091eb5fcae7860aad.438ad5d148ad1668",
+    "id": "1d017f22"
   }
 ]

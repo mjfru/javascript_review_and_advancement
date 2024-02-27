@@ -1,5 +1,7 @@
 const fs = require("fs");
-const crypto = require('crypto');
+const crypto = require("crypto");
+const util = require("util");
+const scrypt = util.promisify(crypto.scrypt);
 
 class UsersRepository {
   // Check and see if there's already a file created to store information:
@@ -16,47 +18,77 @@ class UsersRepository {
   }
   async getall() {
     // Open the file called this.filename
-    return JSON.parse(await fs.promises.readFile(this.filename, { encoding: 'utf8' }));
+    return JSON.parse(
+      await fs.promises.readFile(this.filename, { encoding: "utf8" })
+    );
   }
 
   // Create
   async create(attributes) {
+    // Remember, attributes has email: 'string', password: 'string'
     attributes.id = this.randomId();
-    // { email: '...@emailcom.', password: '...' };
-    const records = await this.getall(); // Getting all the users array
-    records.push(attributes); // Add the new user to the array
+
+    // A random series of numbers and letters for our salt:
+    const salt = crypto.randomBytes(8).toString("hex");
     
+    // Creating the hash:
+    const hashed = await scrypt(attributes.password, salt, 64);
+
+    const records = await this.getall(); // Getting all the users array
+    // Add the new user to the array
+    const record = {
+      // Take all the properties from attributes
+      ...attributes,
+      // But replace the default password with this:
+      password: `${hashed.toString("hex")}.${salt}`,
+    }
+
+    records.push(record);
+
     await this.writeAll(records);
     return attributes;
   }
 
+  // Compare passwords:
+  async comparePasswords(saved, supplied) {
+    // Saved = password saved in our DB. 'hashed.salt'
+    // Supplied = password given to us by a user.
+    const [hashed, salt] = saved.split('.');
+    const hashedSupplied = await scrypt(supplied, salt, 64);
+
+    return hashed === hashedSupplied.toString('hex');
+  }
+
   // Write All
   async writeAll(records) {
-    await fs.promises.writeFile(this.filename, JSON.stringify(records, null, 2));
-  };
-  
+    await fs.promises.writeFile(
+      this.filename,
+      JSON.stringify(records, null, 2)
+    );
+  }
+
   // Generating and assigning a random ID:
   randomId() {
-    return crypto.randomBytes(4).toString('hex');
+    return crypto.randomBytes(4).toString("hex");
   }
 
   // Get One:
   async getOne(id) {
     const records = await this.getall();
-    return records.find(record => record.id === id);
+    return records.find((record) => record.id === id);
   }
 
   // Delete One:
   async delete(id) {
     const records = await this.getall();
-    const filteredRecords = records.filter(record => record.id !== id);
+    const filteredRecords = records.filter((record) => record.id !== id);
     await this.writeAll(filteredRecords);
   }
 
   // Update
   async update(id, attributes) {
     const records = await this.getall();
-    const record = records.find(record => record.id === id);
+    const record = records.find((record) => record.id === id);
     if (!record) {
       throw new Error(`Record with id ${id} not found!`);
     }
@@ -83,9 +115,9 @@ class UsersRepository {
       }
     }
   }
-};
+}
 
-module.exports = new UsersRepository('users.json');
+module.exports = new UsersRepository("users.json");
 //? When we import from this file, we're going to receive an instance of UserRepository and begin to use it immediately.
 
 /* 
