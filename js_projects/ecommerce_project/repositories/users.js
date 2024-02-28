@@ -16,7 +16,7 @@ class UsersRepository {
       fs.writeFileSync(this.filename, "[]");
     }
   }
-  async getall() {
+  async getAll() {
     // Open the file called this.filename
     return JSON.parse(
       await fs.promises.readFile(this.filename, { encoding: "utf8" })
@@ -32,21 +32,21 @@ class UsersRepository {
     const salt = crypto.randomBytes(8).toString("hex");
     
     // Creating the hash:
-    const hashed = await scrypt(attributes.password, salt, 64);
+    const buf = await scrypt(attributes.password, salt, 64);
 
-    const records = await this.getall(); // Getting all the users array
+    const records = await this.getAll(); // Getting all the users array
     // Add the new user to the array
     const record = {
       // Take all the properties from attributes
       ...attributes,
       // But replace the default password with this:
-      password: `${hashed.toString("hex")}.${salt}`,
+      password: `${buf.toString("hex")}.${salt}`,
     }
 
     records.push(record);
 
     await this.writeAll(records);
-    return attributes;
+    return record;
   }
 
   // Compare passwords:
@@ -54,9 +54,9 @@ class UsersRepository {
     // Saved = password saved in our DB. 'hashed.salt'
     // Supplied = password given to us by a user.
     const [hashed, salt] = saved.split('.');
-    const hashedSupplied = await scrypt(supplied, salt, 64);
+    const hashedSuppliedBuf = await scrypt(supplied, salt, 64);
 
-    return hashed === hashedSupplied.toString('hex');
+    return hashed === hashedSuppliedBuf.toString('hex');
   }
 
   // Write All
@@ -74,21 +74,21 @@ class UsersRepository {
 
   // Get One:
   async getOne(id) {
-    const records = await this.getall();
-    return records.find((record) => record.id === id);
+    const records = await this.getAll();
+    return records.find(record => record.id === id);
   }
 
   // Delete One:
   async delete(id) {
-    const records = await this.getall();
-    const filteredRecords = records.filter((record) => record.id !== id);
+    const records = await this.getAll();
+    const filteredRecords = records.filter(record => record.id !== id);
     await this.writeAll(filteredRecords);
   }
 
   // Update
   async update(id, attributes) {
-    const records = await this.getall();
-    const record = records.find((record) => record.id === id);
+    const records = await this.getAll();
+    const record = records.find(record => record.id === id);
     if (!record) {
       throw new Error(`Record with id ${id} not found!`);
     }
@@ -100,7 +100,7 @@ class UsersRepository {
 
   // Get One:
   async getOneBy(filters) {
-    const records = await this.getall();
+    const records = await this.getAll();
     // Iterating through an array
     for (let record of records) {
       let found = true;

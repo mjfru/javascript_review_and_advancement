@@ -7,7 +7,7 @@ module.exports = {
     .normalizeEmail()
     .isEmail()
     .withMessage("Must be a valid email")
-    .custom(async (email) => {
+    .custom(async email => {
       const existingUser = await usersRepo.getOneBy({ email });
       if (existingUser) {
         throw new Error("Email is already in use.");
@@ -19,9 +19,10 @@ module.exports = {
     .isLength({ min: 4, max: 20 })
     .withMessage("Password must be between 4 and 20 characters"),
 
-  requirePasswordConfirm: check("passwordConfirmation")
+  requirePasswordConfirm: check("passwordConfirm")
     .trim()
     .isLength({ min: 4, max: 20 })
+    .withMessage('Password must be between 4 and 20 characters.')
     .custom((passwordConfirm, { req }) => {
       if (passwordConfirm !== req.body.password) {
         throw new Error("Passwords must match.");
