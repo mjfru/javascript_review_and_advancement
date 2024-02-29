@@ -2,22 +2,33 @@ const { check } = require("express-validator");
 const usersRepo = require("../../repositories/users");
 
 module.exports = {
-  requireEmail: check("email")
+  requireTitle: check('title')
+    .trim()
+    .isLength({ min: 5, max: 40 })
+    .withMessage('Must be between 5 and 40 characters'),
+
+  requirePrice: check('price')
+    .trim()
+    .toFloat()
+    .isFloat({ min: 1 })
+    .withMessage('Must be a number greater than 1.'),
+
+  requireEmail: check('email')
     .trim()
     .normalizeEmail()
     .isEmail()
-    .withMessage("Must be a valid email")
+    .withMessage('Must be a valid email')
     .custom(async email => {
       const existingUser = await usersRepo.getOneBy({ email });
       if (existingUser) {
-        throw new Error("Email is already in use.");
+        throw new Error('Email is already in use.');
       }
     }),
 
-  requirePassword: check("password")
+  requirePassword: check('password')
     .trim()
     .isLength({ min: 4, max: 20 })
-    .withMessage("Password must be between 4 and 20 characters"),
+    .withMessage('Password must be between 4 and 20 characters'),
 
   requirePasswordConfirm: check("passwordConfirm")
     .trim()
@@ -29,7 +40,7 @@ module.exports = {
       }
     }),
 
-  requireEmailExists: check("email")
+  requireEmailExists: check('email')
     .trim()
     .normalizeEmail()
     .isEmail()
