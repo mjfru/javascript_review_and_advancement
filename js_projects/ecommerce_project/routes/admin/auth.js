@@ -1,5 +1,6 @@
 const express = require("express");
-const { check, validationResult } = require("express-validator");
+const { handleErrors } = require("./middlewares");
+// const { check, validationResult } = require("express-validator");
 const usersRepo = require("../../repositories/users");
 const signupTemplate = require("../../views/admin/auth/signup");
 const signinTemplate = require("../../views/admin/auth/signin");
@@ -8,7 +9,7 @@ const {
   requirePassword,
   requirePasswordConfirm,
   requireEmailExists,
-  requireValidPasswordForUser
+  requireValidPasswordForUser,
 } = require("./validators");
 
 // Making a sub-router to link the 'app' in index.js
@@ -21,14 +22,9 @@ router.get("/signup", (req, res) => {
 router.post(
   "/signup",
   [requireEmail, requirePassword, requirePasswordConfirm],
+  handleErrors(signupTemplate),
   async (req, res) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.send(signupTemplate({ req, errors }));
-    }
-
-    const { email, password, passwordConfirm } = req.body;
+    const { email, password } = req.body;
     // Create a user in our user repo to represent this person:
     const user = await usersRepo.create({ email, password });
 
@@ -52,13 +48,10 @@ router.get("/signin", (req, res) => {
 });
 
 router.post(
-    "/signin", 
-  [requireEmailExists, requireValidPasswordForUser], 
+  "/signin",
+  [requireEmailExists, requireValidPasswordForUser],
+  handleErrors(signinTemplate),
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.send(signinTemplate({ errors }));
-    }
     // All of a signed-up users info is stored in the req.body so let's destructure it for easier access:
     const { email } = req.body;
     const user = await usersRepo.getOneBy({ email });
@@ -69,7 +62,6 @@ router.post(
 );
 
 module.exports = router;
-
 
 // Manually-made Middleware Function (always called with 3 arguments):
 // const bodyParser = (req, res, next) => {
