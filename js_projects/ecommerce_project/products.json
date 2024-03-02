@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "title": "Sweatshirt",
+    "price": 30,
+    "image": "",
+    "id": "2afc5575"
+  },
+  {
+    "title": "Headphones",
+    "price": 70,
+    "image": "",
+    "id": "acef2de1"
+  }
+]

@@ -14,13 +14,13 @@ module.exports = class Repository {
     }
   }
 
-  async create(attributes) {
-    attributes.id = this.randomId();
+  async create(attrs) {
+    attrs.id = this.randomId();
     const records = await this.getAll();
-    records.push(attributes);
+    records.push(attrs);
     await this.writeAll(records);
 
-    return attributes;
+    return attrs;
   }
 
   async getAll() {
@@ -57,14 +57,14 @@ module.exports = class Repository {
   }
 
   // Update
-  async update(id, attributes) {
+  async update(id, attrs) {
     const records = await this.getAll();
     const record = records.find((record) => record.id === id);
     if (!record) {
       throw new Error(`Record with id ${id} not found!`);
     }
-    // record === {email: 'test@test.com'} attributes === {password: newpassword}
-    Object.assign(record, attributes);
+    // record === {email: 'test@test.com'} attrs === {password: newpassword}
+    Object.assign(record, attrs);
     // record == { email: 'test@test.com', password: 'newpassword' }
     await this.writeAll(records);
   }

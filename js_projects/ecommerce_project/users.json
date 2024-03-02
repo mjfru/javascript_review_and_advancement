@@ -1,35 +1,7 @@
 [
   {
-    "email": "test@test.com"
-  },
-  {
-    "email": "asdf@test.com",
-    "password": "4321",
-    "id": "907d1520"
-  },
-  {
-    "email": "testtest@test.com",
-    "password": "password",
-    "id": "5b6af723"
-  },
-  {
-    "email": "hashtest@test.com",
-    "password": "8690dba6bf8ddbe6eff2883fc23bed9a186d4dc24b3bfd7c738730966a8a213cab9449e8c56262213bf085546ba71c165ed38e701ad13c7e60ab2946ff81a754.831d3f810a9006ef",
-    "id": "bb233e8c"
-  },
-  {
-    "email": "mjfru@dojo.edu",
-    "password": "193def77186c94bc1e5f67a3ee034059c03936fd05fce3032a94a1c1b22e967996c66437b82ce7be107b7ed0aadc710541f2e472036714f091eb5fcae7860aad.438ad5d148ad1668",
-    "id": "1d017f22"
-  },
-  {
-    "email": "@",
-    "password": "769df3b103b2c0278300582c33bf53447289ca6ebd7f19bb7ec12299315f2b94c42ae10b93e0dab45f530b6f24ec7722bb08219185578daa75a6d58b381b1e72.c86235b0c1600484",
-    "id": "ac2de22e"
-  },
-  {
-    "email": "testtest@test.com",
-    "password": "4f9fff9a02a1d0023e7f75c3a59e83415f5062081550367bab8e0ca6a285d498fa77a45a08f1728854ee194c415a626383b9df84552fe030fd176ebddef55959.289e0b2653b3012b",
-    "id": "3c94025b"
+    "email": "mjfru@yahoo.com",
+    "password": "57a7c2c20aab4aca5d5cf12c37da84d5206a146b4b6628a9d7b16cb23a3cc070f408adeb738279ddcbe08ea229b4eae7ea98bc17087d1c6093ff8d8f4a0847d1.b0518c55b187904c",
+    "id": "a43725aa"
   }
 ]

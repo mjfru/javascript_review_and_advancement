@@ -27,11 +27,24 @@ router.post(
   [requireTitle, requirePrice],
   handleErrors(productsNewTemplate),
   async (req, res) => {
-    const image = req.file.buffer.toString('base64');
+    //? Image is optional:
+    let image = "";
+
+    if (req.file) {
+      image = req.file.buffer.toString('base64');
+    }
+    //? If an image is required...:
+    // if (!req.file) {
+    //   res.status(400).send("No image uploaded!");
+    //   return;
+    // }
+
+    //? Original:
+    // const image = req.file.buffer.toString('base64');
     const { title, price } = req.body;
     await productsRepo.create({ title, price, image });
 
-    res.send('submitted');
+    res.redirect('/admin/products');
   }
 );
 
