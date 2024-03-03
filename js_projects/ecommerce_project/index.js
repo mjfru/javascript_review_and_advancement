@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
 const authRouter = require('./routes/admin/auth');
-const productsRouter = require('./routes/admin/products');
+const adminProductsRouter = require('./routes/admin/products');
+const productsRouter = require('./routes/products');
 
 // Object that describes everything the app can do using express
 const app = express();
@@ -19,6 +20,7 @@ app.use(
 );
 app.use(authRouter);
 app.use(productsRouter);
+app.use(adminProductsRouter);
 // Route Handler:
 // Request from a browser to the server, Response, from the server to browser
 
