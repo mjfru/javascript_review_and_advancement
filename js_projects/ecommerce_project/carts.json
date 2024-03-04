@@ -1,6 +1,15 @@
 [
   {
-    "items": [],
+    "items": [
+      {
+        "id": "f6b1fbbc",
+        "quantity": 2
+      },
+      {
+        "id": "a8f3ec8c",
+        "quantity": 1
+      }
+    ],
     "id": "bb01cff5"
   }
 ]
