@@ -1,14 +1,14 @@
-document.querySelector('form').addEventListener('submit', (event) => {
+document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const { value } = document.querySelector('input');
+  const { value } = document.querySelector("input");
 
-  const header = document.querySelector('h1');
-  if (value.includes('@')) {
+  const header = document.querySelector("h1");
+  if (value.includes("@")) {
     // Valid
-    header.innerHTML = 'Looks good!';
+    header.innerHTML = "Looks good!";
   } else {
     // Invalid
-    header.innerHTML = 'Invalid Email.';
+    header.innerHTML = "Invalid Email.";
   }
-})
+});
